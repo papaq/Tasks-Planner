@@ -38,7 +38,15 @@ array<Task^>^ Planner::MakeAPlan(array<Task^>^ taskQueue)
 		if (!flag)
 			break;
 
+		if (taskQueue[minWorkTask]->AppearTime > appearTime)
+		{
+			appearTime++;
+			continue;
+		}
+
 		plannedTasks[plannedIndex] = taskQueue[minWorkTask];
+		plannedTasks[plannedIndex]->WaitTime = appearTime - plannedTasks[plannedIndex]->AppearTime;
+		plannedTasks[plannedIndex]->DoneTime = appearTime + plannedTasks[plannedIndex]->WorkTime;
 		plannedIndex++;
 
 		appearTime += taskQueue[minWorkTask]->WorkTime;

@@ -22,6 +22,7 @@ array<Task^ > ^ QueueGenerator::MakeQueue()
 		}
 
 		queue[i] = gcnew Task;
+		queue[i]->Index = i;
 		queue[i]->AppearTime = nextTaskTime;
 		queue[i]->WorkTime = (rand() % DIFF_RANGE) + 1;
 		nextTaskTime++;
@@ -33,7 +34,7 @@ array<Task^ > ^ QueueGenerator::MakeQueue()
 
 void QueueGenerator::PrintArray(array<Task^> ^ tasks)
 {
-	System::Console::WriteLine("{0,7}:{1,7}{2,5}", "Index", "Appear", "Hard");
+	System::Console::WriteLine("{0,7}:{1,7}{2,5}{3,5}{4,5}", "Index", "Appear", "Hard", "Wait", "Done");
 
 	for (int i = 0; i < tasks->Length; i++)
 	{
@@ -41,6 +42,6 @@ void QueueGenerator::PrintArray(array<Task^> ^ tasks)
 		{
 			return;
 		}
-		System::Console::WriteLine("{0,7}:{1,12}",i,tasks[i]->ToString());
+		System::Console::WriteLine("{0,7}:{1,22}", tasks[i]->Index,tasks[i]->ToString());
 	}
 }
